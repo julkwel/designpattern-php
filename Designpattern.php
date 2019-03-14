@@ -1,9 +1,16 @@
 <?php
+/**
+ * RAJERISON Julien
+ * 14 - 03 - 2019
+ * PHPstorm
+ */
 
 // design patter factory
 
 /**
  * Class pdoFactory
+ * Ny factory dia natao mba tsy hikitihana class marobe indray miaraka , izany hoe ny foction ao anatin'ilay
+ * class parent ihany no kitihanao dia efa mahazo daholo izay rehetra nanao instanciation
  */
 class pdoFactory
 {
@@ -23,10 +30,13 @@ class pdoFactory
  */
 $instance = pdoFactory::getBdd();
 
+//-----------------------------------------------------------//
+
 // Observer pattern
 
 /**
  * Class Observee
+ * Ny observer dia natao mba hanaraha-maso ny fiovan'ny objet anankiray
  */
 class Observee implements SplSubject
 {
@@ -98,10 +108,13 @@ $user->attach(new Observer1);
 $user->setNom('victor');
 
 
+//-----------------------------------------------------------//
+
 // factory
 
 /**
  * Interface Formater
+ * Ny factory dia natao mba hanampiana fonctionalité tsy ampy ao anatin'ny class instanciena
  */
 interface Formater
 {
@@ -132,10 +145,14 @@ abstract class Writer
 
 }
 
+//-----------------------------------------------------------//
+
 // Singleton anti-pattern
 
 /**
  * Class Singleton
+ * Ny singleton dia natao mba tsy hahafahan'ny olona miinstancier ny function iray any anatin'ny constructor na clone
+ * Antipattern izy satria tsy natao ho ampiasaina miverina indroa akory
  */
 class Singleton
 {
@@ -192,10 +209,13 @@ class Singleton
 $obj = Singleton::getInstance();
 $obj->setNom('bebe');
 
+//-----------------------------------------------------------//
+
 // Itterator pattern
 
 /**
  * Class tIterator_array
+ * Ny itterator dia natao hiainoana ny etape ataon'ny objet iray
  */
 class tIterator_array implements Iterator
 {
@@ -259,10 +279,13 @@ foreach ($obj as $key => $value) {
     var_dump($key, $value);
 }
 
+//-----------------------------------------------------------//
+
 // Generator pattern
 /**
  * @param $n
  * @return Generator
+ * Ny generator dia natao higenerana objet iray avy amin'ny alalan'ny instanciation
  */
 function fib($n)
 {
