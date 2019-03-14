@@ -1,149 +1,269 @@
 <?php
 
 // design patter factory
-class pdoFactory{
-    public static function getBdd(){
-        $db = new PDO('','','','');
-        $db->setAttribute('','');
+
+/**
+ * Class pdoFactory
+ */
+class pdoFactory
+{
+    /**
+     * @return PDO
+     */
+    public static function getBdd()
+    {
+        $db = new PDO('', '', '', '');
+        $db->setAttribute('', '');
         return $db;
     }
 }
 
+/**
+ * Instance factory class
+ */
 $instance = pdoFactory::getBdd();
 
 // Observer pattern
-class Observee implements SplSubject {
+
+/**
+ * Class Observee
+ */
+class Observee implements SplSubject
+{
     protected $observers = [];
     protected $nom;
 
-    public function attach(SplObserver $observer){
-     $this->observers[] = $observer;
+    /**
+     * @param SplObserver $observer
+     */
+    public function attach(SplObserver $observer)
+    {
+        $this->observers[] = $observer;
     }
 
-    public function detach(SplObserver $observer){
-        if (is_int($key = array_search($observer,$this->observers,true))){
+    /**
+     * @param SplObserver $observer
+     */
+    public function detach(SplObserver $observer)
+    {
+        if (is_int($key = array_search($observer, $this->observers, true))) {
             unset($this->observers[$key]);
         }
     }
 
+    /**
+     * notify all observer if an event provide
+     */
     public function notify()
     {
-        foreach ($this->observers as $observer){
+        foreach ($this->observers as $observer) {
             $observer->update($this);
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getNom()
     {
         return $this->nom;
     }
 
-    public function setNom($nom){
+    /**
+     * @param $nom
+     */
+    public function setNom($nom)
+    {
         $this->nom = $nom;
         $this->notify();
     }
 }
 
-class observer1 implements SplObserver{
+/**
+ * Class observer1 observe an event via SplObserver
+ */
+class observer1 implements SplObserver
+{
     public function update(SplSubject $subject)
     {
         echo 'update spl1';
     }
 }
 
+/**
+ * Instance abserver and get an event via observer1
+ */
 $user = new Observee();
 $user->attach(new Observer1);
 $user->setNom('victor');
 
 
 // factory
+
+/**
+ * Interface Formater
+ */
 interface Formater
 {
     public function format($text);
 }
 
+/**
+ * Class Writer
+ */
 abstract class Writer
 {
- protected $formater;
+    protected $formater;
 
- abstract public function write($text);
+    /**
+     * @param $text
+     * @return mixed
+     */
+    abstract public function write($text);
 
- public function __construct(Formater $formater)
- {
-    $this->formater = $formater;
- }
+    /**
+     * Writer constructor.
+     * @param Formater $formater
+     */
+    public function __construct(Formater $formater)
+    {
+        $this->formater = $formater;
+    }
 
 }
 
 // Singleton anti-pattern
+
+/**
+ * Class Singleton
+ */
 class Singleton
 {
     private $nom;
     protected static $instance;
 
+    /**
+     * Singleton constructor.
+     */
     protected function __construct()
     {
-    }
+    } // prevent user to instance via constructor
 
+    /**
+     * Singleton clone
+     */
     protected function __clone()
     {
-        // TODO: Implement __clone() method.
-    }
+    } // prevent user to clone
 
+    /**
+     * @return Singleton
+     */
     public static function getInstance()
     {
-        if(!isset(self::$instance)){
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
 
         return self::$instance;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNom()
     {
         return $this->nom;
     }
 
+    /**
+     * @param $nom
+     * @return mixed
+     */
     public function setNom($nom)
     {
         return $this->nom = $nom;
     }
 }
 
+/**
+ * Instance singleton
+ */
 $obj = Singleton::getInstance();
 $obj->setNom('bebe');
 
 // Itterator pattern
-class tIterator_array implements Iterator {
-    private $myArray  ;
 
-    public function __construct( $givenArray ) {
+/**
+ * Class tIterator_array
+ */
+class tIterator_array implements Iterator
+{
+    private $myArray;
+
+    /**
+     * tIterator_array constructor.
+     * @param $givenArray
+     */
+    public function __construct($givenArray)
+    {
         $this->myArray = $givenArray;
     }
-    function rewind() {
+
+    /**
+     * @return mixed
+     */
+    function rewind()
+    {
         return reset($this->myArray);
     }
-    function current() {
+
+    /**
+     * @return mixed
+     */
+    function current()
+    {
         return current($this->myArray);
     }
-    function key() {
+
+    /**
+     * @return int|mixed|null|string
+     */
+    function key()
+    {
         return key($this->myArray);
     }
-    function next() {
+
+    /**
+     * @return mixed
+     */
+    function next()
+    {
         return next($this->myArray);
     }
-    function valid() {
+
+    /**
+     * @return bool
+     */
+    function valid()
+    {
         return key($this->myArray) !== null;
     }
 }
 
-$obj = new tIterator_array([ 1,2,3]);
-foreach($obj as $key=>$value)
-{
-    var_dump($key,$value);
+/**
+ * Itterate an array
+ */
+$obj = new tIterator_array([1, 2, 3]);
+foreach ($obj as $key => $value) {
+    var_dump($key, $value);
 }
 
 // Generator pattern
+/**
+ * @param $n
+ * @return Generator
+ */
 function fib($n)
 {
     $cur = 1;
@@ -157,6 +277,9 @@ function fib($n)
     }
 }
 
+/**
+ * Add a generator instance
+ */
 $fibs = fib(9);
 foreach ($fibs as $fib) {
     echo " " . $fib;
