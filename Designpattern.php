@@ -9,7 +9,7 @@
 
 /**
  * Class pdoFactory
- * Ny factory dia natao mba tsy hikitihana class marobe indray miaraka , izany hoe ny foction ao anatin'ilay
+ * Ny factory dia natao mba tsy hikitihana class marobe indray miaraka , izany hoe ny fuction ao anatin'ilay
  * class parent ihany no kitihanao dia efa mahazo daholo izay rehetra nanao instanciation
  */
 class pdoFactory
